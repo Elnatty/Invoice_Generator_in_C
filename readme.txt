@@ -8,4 +8,6 @@
 8: displaying bill to user, by calling the generateBillHeader function(line 96).
 9: definig "total" variable(line 63);
     total = total + (ord.itm[i].qty * ord.itm[i].price) (line 95).
-10: generate billBody (line 98), 
+10: generate billBody (line 100, 104)
+11: save bill info into a fiile(line 66, 108-120).
+12: 

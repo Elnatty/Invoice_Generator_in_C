@@ -63,6 +63,8 @@ int main(){
   int opt, n;    // variable to store user preferred operation from line 54.
   float total;
   struct orders ord;
+  char saveBill = 'y';
+  FILE *fp;
   printf("\n\n================== DKING. Invoice Gen ==================\n");
   printf("\nplease select your preferred operation:\t");
   printf("\n\n1. Generate Invoice");
@@ -102,6 +104,21 @@ int main(){
         generateBillBody(ord.itm[i].item, ord.itm[i].qty, ord.itm[i].price);
       }
       generateBillFooter(total);
+
+      printf("\nDO you want to save the invoice? [y/n]:\t");
+      scanf("%s", &saveBill);
+      if (saveBill == 'y'){
+        fp = fopen("billGen.dat", "a+");  //the "a+" opens and appends data at the end of file.
+        fwrite(&ord, sizeof(struct orders), 1, fp); //"&ord"-->pointer to the structure we want to store,  "sizeof(struct orders)"-->size of the structure, "1"-->how many instance of the order you want to save, "fp"-->file pointer.
+
+        if (fwrite != 0)
+          printf("\nsuccessfully saved...");
+        else
+          printf("\nerror, couldn't save..");
+        fclose(fp);
+      }
+      break;
+
 
   }
 
