@@ -5,4 +5,7 @@
 5: get default date info and store it into the ord.date struct (line 78).
 6: get number of items(line 79, 80) and store it to variable n at(line).
 7: get list of "n" item names using for loop(line 82-86): item name, qty, price.
-8: 
+8: displaying bill to user, by calling the generateBillHeader function(line 96).
+9: definig "total" variable(line 63);
+    total = total + (ord.itm[i].qty * ord.itm[i].price) (line 95).
+10: generate billBody (line 98), 
