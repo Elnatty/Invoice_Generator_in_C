@@ -5,17 +5,18 @@
 
 // billgenerator fuction
 void generateBillHeader (char name[50], char date[30]){
-  printf("\n\n");
-    printf("\t    DKING. Invoice Gen");
-    printf("\n\t  -------------------");
+  printf("\n\n\n\n");
+    printf("\t    Invoice Generator");
+    printf("\n\t  -----------------------");
     printf("\n");
     printf("\nDate: %s", date);
+    printf("\nInvoice To %s", name);
     printf("\n");
-    printf("------------------------------------------");
+    printf("------------------------------------------\n");
     printf("Items\t\t");
     printf("Qty\t\t");
     printf("Total\t\t");
-    printf("--------------------------------------------");
+    printf("\n------------------------------------------");
     printf("\n\n");   
 }
 // function for billBody
@@ -45,21 +46,22 @@ void generateBillFooter (float total){
   float dis = 0.1 * total;
   float netTotal = total - dis;
   float cgst=0.09*netTotal, granfTotal=netTotal + 2*cgst;
-  printf("---------------------------------------\n");
+  printf("------------------------------------------\n");
   printf("SubTotal\t\t\t%.2f", total);
   printf("\nDiscount @10%s\t\t\t%.2f", "%", dis);
-  printf("\n\t\t\t\t-------");
+  printf("\n\t\t\t\t----------");
   printf("\nNet Total\t\t\t%.2f", netTotal);
   printf("\nCGST @9%s\t\t\t%.2f", "%", cgst);
   printf("\nSGST @9%s\t\t\t%.2f", "%", cgst);
-  printf("\n---------------------------------------");
+  printf("\n------------------------------------------");
   printf("\nGrand Total\t\t\t%.2f", granfTotal);
-  printf("\n--------------------------------------\n");
+  printf("\n------------------------------------------\n");
 }
 
 int main(){
   // dashboard
   int opt, n;    // variable to store user preferred operation from line 54.
+  float total;
   struct orders ord;
   printf("\n\n================== DKING. Invoice Gen ==================\n");
   printf("\nplease select your preferred operation:\t");
@@ -67,7 +69,7 @@ int main(){
   printf("\n2. Show all Invoice");
   printf("\n3. Search Invoice");
   printf("\n4. Exit");
-  printf("Your choice:\t");
+  printf("\n\nYour choice:\t");
   scanf("%d", &opt);
   fgetc(stdin);   // to remove the '\n' created by default by the scanf(line 69).
 
@@ -79,6 +81,7 @@ int main(){
       strcpy(ord.date, __DATE__);
       printf("\nplease enter number of item:\t");
       scanf("%d", &n);
+      ord.numOfItems = n;  // ord.numOfItems takes on the value of n.
       // for loop to take all "n" item.
       for (int i=0; i<n; i++){
         fgetc(stdin);
@@ -90,8 +93,15 @@ int main(){
         scanf("%d", &ord.itm[i].qty);
         printf("please enter the unit price:\t");
         scanf("%f", &ord.itm[i].price);
+        total += ord.itm[i].qty * ord.itm[i].price;
 
       }
+
+      generateBillHeader(ord.customer, ord.date);
+      for (int i=0; i < ord.numOfItems;  i++){
+        generateBillBody(ord.itm[i].item, ord.itm[i].qty, ord.itm[i].price);
+      }
+      generateBillFooter(total);
 
   }
 
